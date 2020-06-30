@@ -2,7 +2,7 @@
 	$url = $_POST["url"];
 ?>
 
-<form action="newline_visializer.php" method="POST">
+<form action="index.php" method="POST">
 <input type="url" name="url" value="<?php echo $url ?>" size="60" /><input type="submit" value="Visualize" />
 </form>
 <hr />
