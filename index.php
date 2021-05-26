@@ -1,15 +1,15 @@
 <?php 
-	$url = $_POST["url"];
+	$url = $_GET["url"];
 ?>
 
-<form action="index.php" method="POST">
+<form action="index.php" method="GET">
 <input type="url" name="url" value="<?php echo $url ?>" size="60" /><input type="submit" value="Visualize" />
 </form>
 <hr />
 
 <?php
 
-if (isset($_POST["url"]) && strlen($_POST["url"]) > 0) {
+if (isset($_GET["url"]) && strlen($_GET["url"]) > 0) {
 	$contents = file_get_contents($url);
 
 	while (strlen($contents) > 0) {
@@ -23,12 +23,19 @@ if (isset($_POST["url"]) && strlen($_POST["url"]) > 0) {
 			$contents = substr($contents, 1);
 			continue;
 		}
+		if ($contents[0] == "\xE2" && $contents[1] == "\x80" && $contents[2] == "\xA8") {
+			echo "<span style='background:cyan;'>LSEP</span>";
+			$contents = substr($contents, 3);
+			continue;
+		}
+		if ($contents[0] == "\xE2" && $contents[1] == "\x80" && $contents[2] == "\xA9") {
+			echo "<span style='background:orange;'>PSEP</span>";
+			$contents = substr($contents, 3);
+			continue;
+		}
 
 		echo htmlspecialchars($contents[0]);
 		$contents = substr($contents, 1);
-
-		$lfIndex = strpos($contents, "\n");
-		$crIndex = strpos($contents, "\r");
 	}
 	echo htmlspecialchars($contents);	
 }
