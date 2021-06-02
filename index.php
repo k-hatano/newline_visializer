@@ -23,6 +23,16 @@ if (isset($_GET["url"]) && strlen($_GET["url"]) > 0) {
 			$contents = substr($contents, 1);
 			continue;
 		}
+		if ($contents[0] == "\t") {
+			echo "&emsp;";
+			$contents = substr($contents, 1);
+			continue;
+		}
+		if ($contents[0] == " ") {
+			echo "&nbsp;";
+			$contents = substr($contents, 1);
+			continue;
+		}
 		if ($contents[0] == "\xE2" && $contents[1] == "\x80" && $contents[2] == "\xA8") {
 			echo "<span style='background:cyan;'>LSEP</span>";
 			$contents = substr($contents, 3);
@@ -31,6 +41,11 @@ if (isset($_GET["url"]) && strlen($_GET["url"]) > 0) {
 		if ($contents[0] == "\xE2" && $contents[1] == "\x80" && $contents[2] == "\xA9") {
 			echo "<span style='background:orange;'>PSEP</span>";
 			$contents = substr($contents, 3);
+			continue;
+		}
+		if ($contents[0] == "\xC2" && $contents[1] == "\x85") {
+			echo "<span style='background:magenta;'>NEL</span>";
+			$contents = substr($contents, 2);
 			continue;
 		}
 
