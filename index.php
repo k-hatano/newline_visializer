@@ -50,8 +50,38 @@ if (isset($_GET["url"]) && strlen($_GET["url"]) > 0) {
 			continue;
 		}
 
-		echo htmlspecialchars(mb_substr($contents, 0, 1));
-		$contents = mb_substr($contents, 1);
+		$sublength = mb_strlen($contents);
+		$crIndex = mb_strpos($contents, "\r");
+		if ($crIndex != false && $crIndex < $sublength) {
+			$sublength = $crIndex;
+		}
+		$lfIndex = mb_strpos($contents, "\n");
+		if ($lfIndex != false && $lfIndex < $sublength) {
+			$sublength = $lfIndex;
+		}
+		$tabIndex = mb_strpos($contents, "\t");
+		if ($tabIndex != false && $tabIndex < $sublength) {
+			$sublength = $tabIndex;
+		}
+		$spaceIndex = mb_strpos($contents, " ");
+		if ($spaceIndex != false && $spaceIndex < $sublength) {
+			$sublength = $spaceIndex;
+		}
+		$lsepIndex = mb_strpos($contents, "\xE2\x80\xA8");
+		if ($lsepIndex != false && $lsepIndex < $sublength) {
+			$sublength = $lsepIndex;
+		}
+		$psepIndex = mb_strpos($contents, "\xE2\x80\xA9");
+		if ($psepIndex != false && $psepIndex < $sublength) {
+			$sublength = $psepIndex;
+		}
+		$nelIndex = mb_strpos($contents, "\xC2\x85");
+		if ($nelIndex != false && $nelIndex < $sublength) {
+			$sublength = $nelIndex;
+		}
+
+		echo htmlspecialchars(mb_substr($contents, 0, $sublength));
+		$contents = mb_substr($contents, $sublength);
 	}
 	echo htmlspecialchars($contents);	
 }
