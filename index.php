@@ -5,6 +5,8 @@
 
 <form action="" method="GET">
 <input type="url" name="url" value="<?php echo $urlEscaped ?>" size="60" /><input type="submit" value="Visualize" />
+&nbsp;
+Legend: <span style='font-family: monospace;'><span style='background:red;'>CR</span> <span style='background:lime;'>LF</span> <span style='background:cyan;'>LSEP</span> <span style='background:orange;'>PSEP</span> <span style='background:magenta;'>NEL</span></span>
 </form>
 <hr />
 
@@ -13,6 +15,7 @@
 if (isset($_GET["url"]) && strlen($_GET["url"]) > 0) {
 	$contents = file_get_contents($url);
 
+	echo "<div style='font-family: monospace;'>"
 	while (mb_strlen($contents) > 0) {
 		if ($contents[0] == "\r") {
 			echo "<span style='background:red;'>CR</span>";
@@ -83,6 +86,7 @@ if (isset($_GET["url"]) && strlen($_GET["url"]) > 0) {
 		echo htmlspecialchars(mb_substr($contents, 0, $sublength));
 		$contents = mb_substr($contents, $sublength);
 	}
-	echo htmlspecialchars($contents);	
+	echo htmlspecialchars($contents);
+	echo "</div>"
 }
 
