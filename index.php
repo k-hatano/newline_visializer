@@ -15,7 +15,7 @@ Legend: <span style='font-family: monospace;'><span style='background:red;'>CR</
 if (isset($_GET["url"]) && strlen($_GET["url"]) > 0) {
 	$contents = file_get_contents($url);
 
-	echo "<div style='font-family: monospace; line-break: anywhere;'>"
+	echo "<div style='font-family: monospace; line-break: anywhere;'>";
 	while (mb_strlen($contents) > 0) {
 		if ($contents[0] == "\r" && $contents[1] == "\n") {
 			echo "<span style='background:red;'>CR</span><span style='background:lime;'>LF</span><br />";
@@ -92,6 +92,6 @@ if (isset($_GET["url"]) && strlen($_GET["url"]) > 0) {
 		$contents = mb_substr($contents, $sublength);
 	}
 	echo htmlspecialchars($contents);
-	echo "</div>"
+	echo "</div>";
 }
 
