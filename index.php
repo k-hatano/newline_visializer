@@ -19,7 +19,7 @@ if (isset($_GET["url"]) && strlen($_GET["url"]) > 0) {
 	while (mb_strlen($contents) > 0) {
 		if ($contents[0] == "\r" && $contents[1] == "\n") {
 			echo "<span style='background:red;'>CR</span><span style='background:lime;'>LF</span><br />";
-			$contents = mb_substr($contents, 1);
+			$contents = mb_substr($contents, 2);
 			continue;
 		}
 		if ($contents[0] == "\r") {
